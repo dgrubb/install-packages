@@ -160,6 +160,7 @@ install_imobiledevice() {
     # Check for the build directory and create it if absent
     if [ ! -d "$BUILD_DIR" ]; then
         msg "Creating imobiledevice build directory: $BUILD_DIR"
+        mkdir -p $BUILD_DIR
     fi
     cd $BUILD_DIR
 
@@ -226,6 +227,12 @@ setup_vim() {
     wget --directory-prefix=~/ https://raw.githubusercontent.com/dgrubb/vim-config/master/.vimrc
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
+    cd ~/.vim/bundle/YouCompleteMe
+    ./install.py --tern-completer --clang-completer
+    if [ ! -d "~/.vim/colors" ]; then
+        mkdir -p ~/.vim/colors
+    fi
+    wget --directory-prefix=~/.vim/colors https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim
 }
 
 ###############################################################################
