@@ -43,6 +43,7 @@ readonly REQUIRED_PACKAGES=(
     bison
     flex
     texinfo
+    libtool
     libtool-bin
     pkg-config
     cython
@@ -115,7 +116,7 @@ install_packages_from_repos() {
     local missing=()
     for i in "${REQUIRED_PACKAGES[@]}"
     do
-        reqinstalled=$(dpkg-query -W --showformat='${Status}\n' $i | grep "unknown ok not-installed")
+        reqinstalled=$(apt-cache policy $i | grep "Installed: (none)")
         if [ "" != "$reqinstalled" ]; then
             missing+=($i)
         fi
