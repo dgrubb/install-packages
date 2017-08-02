@@ -105,7 +105,7 @@ msg() {
 
 update_and_upgrade() {
     msg "Updating apt"
-    apt-get update && apt-get upgrade
+    apt-get update && apt-get --yes --force-yes upgrade
 }
 
 ###############################################################################
