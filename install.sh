@@ -232,15 +232,15 @@ install_nodejs() {
 setup_vim() {
     msg "Setting up Vim"
     sudo npm -g install jshint
-    wget --directory-prefix=~/ https://raw.githubusercontent.com/dgrubb/vim-config/master/.vimrc
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    wget --directory-prefix=$HOME https://raw.githubusercontent.com/dgrubb/vim-config/master/.vimrc
+    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
     cd ~/.vim/bundle/YouCompleteMe
     ./install.py --tern-completer --clang-completer
     if [ ! -d "~/.vim/colors" ]; then
         mkdir -p ~/.vim/colors
     fi
-    wget --directory-prefix=~/.vim/colors https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim
+    wget --directory-prefix=$HOME/.vim/colors https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim
 }
 
 ###############################################################################
