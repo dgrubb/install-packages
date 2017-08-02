@@ -92,6 +92,7 @@ do_install_packages_from_repos=y
 do_install_google_chrome=y
 do_install_nodejs=y
 do_install_imobiledevice=y
+do_setup_vim=y
 
 ###############################################################################
 
@@ -218,6 +219,16 @@ install_nodejs() {
 }
 
 ###############################################################################
+
+setup_vim() {
+    msg "Setting up Vim"
+    sudo npm -g install jshint
+    wget --directory-prefix=~/ https://raw.githubusercontent.com/dgrubb/vim-config/master/.vimrc
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall
+}
+
+###############################################################################
 # Start execution
 ###############################################################################
 
@@ -255,3 +266,6 @@ if [ $do_install_imobiledevice = "y" ]; then
     install_imobiledevice
 fi
 
+if [ $do_setup_vim = "y" ]; then
+    setup_vim
+fi
