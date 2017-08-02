@@ -79,7 +79,7 @@ readonly STALE_PACKAGES=(
 readonly IMOBILE_PACKAGES=(
     libplist
     libusbmuxd
-    libidevicemobile
+    libimobiledevice
     usbmuxd
 )
 
