@@ -12,7 +12,7 @@
 #
 ###############################################################################
 
-readonly REQUIRE_PACKAGES=(
+readonly REQUIRED_PACKAGES=(
     # Development tools
     build-essential
     cmake
