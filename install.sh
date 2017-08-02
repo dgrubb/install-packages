@@ -43,8 +43,11 @@ readonly REQUIRE_PACKAGES=(
     bison
     flex
     texinfo
-    libtool
+    libtool-bin
     pkg-config
+    cython
+    openssl
+    doxygen
     # Libraries
     zlib1g-dev
     python-dev
@@ -52,7 +55,13 @@ readonly REQUIRE_PACKAGES=(
     libexpat1-dev
     libmpc-dev
     libgmp-dev
+    libusb-1.0-0
     libusb-1.0-0-dev
+    libgnutls-dev
+    libzip-dev
+    libssl-dev
+    libfuse2
+    libfuse-dev
 )
 
 # Some packages in the repos contain known bugs. E.g., libimobiledevice doesn't
@@ -61,6 +70,18 @@ readonly REQUIRE_PACKAGES=(
 readonly STALE_PACKAGES=(
     libimobiledevice6
 )
+
+# N.B: due to depedencies these pakages must be built in this order
+readonly IMOBILE_PACKAGES=(
+    libplist
+    libusbmuxd
+    libidevicemobile
+    usbmuxd
+)
+
+readonly CUR_DIR=`pwd`
+readonly INSTALL_DIR="/usr"
+readonly BUILD_DIR="$CUR_DIR/imobiledevice"
 
 ###############################################################################
 
@@ -131,6 +152,52 @@ remove_packages() {
 }
 
 ###############################################################################
+
+install_imobiledevice() {
+    msg "Building and installing libimobiledevice"
+
+    # Check for the build directory and create it if absent
+    if [ ! -d "$BUILD_DIR" ]; then
+        msg "Creating imobiledevice build directory: $BUILD_DIR"
+    fi
+    cd $BUILD_DIR
+
+    # Build and install each component in the libimobiledevice suite
+    for i in "${IMOBILE_PACKAGES}"
+    do
+        build_package $i
+        install_package $i
+    done
+    cd $CUR_DIR
+}
+
+###############################################################################
+
+build_package() {
+    msg "Building $1"
+    git clone https://github.com/libimobiledevice/$1.git
+    cd $1
+    ./autogen.sh --prefix=$INSTALL_DIR --enable-debug-code
+    if [ ! -f Makefile.in ]; then
+        # Ugly hack: I don't know why, but autogen.sh sometimes fails the
+        # first time its run but sicessfully subsequent times. Requires
+        # investigation.
+        ./autogen.sh --prefix=$INSTALL_DIR --enable-debug-code
+    fi
+    make
+    cd $BUILD_DIR
+}
+
+###############################################################################
+
+install_package() {
+    msg "Installing package: $1"
+    cd $1
+    make install
+    cd $BUILD_DIR
+}
+
+###############################################################################
 # Start execution
 ###############################################################################
 
@@ -154,5 +221,9 @@ fi
 
 if [ $do_install_packages_from_repos = "y" ]; then
     install_packages_from_repos
+fi
+
+if [ $do_install_imobiledevice = "y" ]; then
+    install_imobiledevice
 fi
 
