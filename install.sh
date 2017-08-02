@@ -115,7 +115,7 @@ install_packages_from_repos() {
     local missing=()
     for i in "${REQUIRED_PACKAGES[@]}"
     do
-        reqinstalled=$(dpkg-query -W --showformat='${Status}\n' $i | grep "install ok installed")
+        reqinstalled=$(dpkg-query -W --showformat='${Status}\n' $i | grep "unknown ok not-installed")
         if [ "" != "$reqinstalled" ]; then
             missing+=($i)
         fi
@@ -143,6 +143,13 @@ remove_stale_packages() {
     if [ ! ${#stale[@]} -eq 0 ]; then
         remove_packages ${stale[@]}
     fi
+}
+
+###############################################################################
+
+install_packages() {
+    msg "Installing missing packages from repos"
+    apt-get --yes --force-yes install $@
 }
 
 ###############################################################################
@@ -254,7 +261,7 @@ if [ $do_update_and_upgrade = "y" ]; then
 fi
 
 if [ $do_remove_stale_packages = "y" ]; then
-    rmeove_stale_repos
+    remove_stale_packages
 fi
 
 if [ $do_install_packages_from_repos = "y" ]; then
