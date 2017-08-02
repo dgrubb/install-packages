@@ -198,6 +198,26 @@ install_package() {
 }
 
 ###############################################################################
+
+install_google_chrome() {
+    msg "Installing Google Chrome browser"
+    grep chrome /etc/apt/sources.list.d/google-chrome.list >&/dev/null || (
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
+        echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+        apt-get update
+        apt-get install -y --no-install-recommends google-chrome-stable
+    )
+}
+
+###############################################################################
+
+install_nodejs() {
+    msg "Installing NodeJS"
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    apt-get install -y nodejs
+}
+
+###############################################################################
 # Start execution
 ###############################################################################
 
@@ -221,6 +241,14 @@ fi
 
 if [ $do_install_packages_from_repos = "y" ]; then
     install_packages_from_repos
+fi
+
+if [ $do_install_google_chrome = "y" ]; then
+    install_google_chrome
+fi
+
+if [ $do_install_nodejs = "y" ]; then
+    install_nodejs
 fi
 
 if [ $do_install_imobiledevice = "y" ]; then
