@@ -176,7 +176,7 @@ install_imobiledevice() {
     cd $BUILD_DIR
 
     # Build and install each component in the libimobiledevice suite
-    for i in "${IMOBILE_PACKAGES}"
+    for i in "${IMOBILE_PACKAGES[@]}"
     do
         build_package $i
         install_package $i
