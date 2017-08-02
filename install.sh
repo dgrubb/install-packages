@@ -56,6 +56,7 @@ readonly REQUIRED_PACKAGES=(
     libexpat1-dev
     libmpc-dev
     libgmp-dev
+    libusb-dev
     libusb-1.0-0
     libusb-1.0-0-dev
     libgnutls-dev
@@ -63,6 +64,8 @@ readonly REQUIRED_PACKAGES=(
     libssl-dev
     libfuse2
     libfuse-dev
+    libudev1
+    libudev-dev
 )
 
 # Some packages in the repos contain known bugs. E.g., libimobiledevice doesn't
