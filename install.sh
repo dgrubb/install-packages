@@ -49,6 +49,7 @@ readonly REQUIRED_PACKAGES=(
     cython
     openssl
     doxygen
+    tmux
     # Libraries
     zlib1g-dev
     python-dev
