@@ -50,6 +50,7 @@ readonly REQUIRED_PACKAGES=(
     openssl
     doxygen
     tmux
+    apt-transport-https
     # Libraries
     zlib1g-dev
     python-dev
