@@ -73,6 +73,8 @@ readonly REQUIRED_PACKAGES=(
 # work with iOS 10. It's been fixed in GitHub but hasn't percolated down 
 # into repos yet.
 readonly STALE_PACKAGES=(
+    libplist3
+    libusbmuxd4
     libimobiledevice6
 )
 
