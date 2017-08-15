@@ -61,7 +61,6 @@ readonly REQUIRED_PACKAGES=(
     libusb-dev
     libusb-1.0-0
     libusb-1.0-0-dev
-    libgnutls-dev
     libzip-dev
     libssl-dev
     libfuse2
