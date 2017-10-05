@@ -51,6 +51,7 @@ readonly REQUIRED_PACKAGES=(
     doxygen
     tmux
     apt-transport-https
+    fonts-inconsolata
     # Libraries
     zlib1g-dev
     python-dev
