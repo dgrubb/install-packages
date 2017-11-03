@@ -52,6 +52,7 @@ readonly REQUIRED_PACKAGES=(
     tmux
     apt-transport-https
     fonts-inconsolata
+    ncdu
     # Libraries
     zlib1g-dev
     python-dev
