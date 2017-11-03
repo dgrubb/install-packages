@@ -53,6 +53,8 @@ readonly REQUIRED_PACKAGES=(
     apt-transport-https
     fonts-inconsolata
     ncdu
+    rustc
+    cargo
     # Libraries
     zlib1g-dev
     python-dev
@@ -96,11 +98,11 @@ readonly BUILD_DIR="$CUR_DIR/imobiledevice"
 
 # Installation steps
 do_update_and_upgrade=y
-do_remove_stale_packages=y
+do_remove_stale_packages=n
 do_install_packages_from_repos=y
 do_install_google_chrome=y
 do_install_nodejs=y
-do_install_imobiledevice=y
+do_install_imobiledevice=n
 do_setup_vim=y
 
 ###############################################################################
