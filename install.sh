@@ -251,6 +251,19 @@ setup_vim() {
     vim +PluginInstall +qall
     cd ~/.vim/bundle/YouCompleteMe
     ./install.py --tern-completer --clang-completer
+
+    # Add Rust parsing to ctags to allow for integration with TagBar
+    echo "--langdef=Rust" >> ~/.ctags
+    echo "--langmap=Rust:.rs" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*(#\[[^\]]\][ \t]*)*(pub[ \t]+)?(extern[ \t]+)?(\"[^\"]+\"[ \t]+)?(unsafe[ \t]+)?fn[ \t]+([a-zA-Z0-9_]+)/\6/f,functions,function definitions/" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*(pub[ \t]+)?type[ \t]+([a-zA-Z0-9_]+)/\2/T,types,type definitions/" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*(pub[ \t]+)?enum[ \t]+([a-zA-Z0-9_]+)/\2/g,enum,enumeration names/" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*(pub[ \t]+)?struct[ \t]+([a-zA-Z0-9_]+)/\2/s,structure names/" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*(pub[ \t]+)?mod[ \t]+([a-zA-Z0-9_]+)/\2/m,modules,module names/" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*(pub[ \t]+)?(static|const)[ \t]+(mut[ \t]+)?([a-zA-Z0-9_]+)/\4/c,consts,static constants/" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*(pub[ \t]+)?(unsafe[ \t]+)?trait[ \t]+([a-zA-Z0-9_]+)/\3/t,traits,traits/" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*(pub[ \t]+)?(unsafe[ \t]+)?impl([ \t\n]*<[^>]*>)?[ \t]+(([a-zA-Z0-9_:]+)[ \t]*(<[^>]*>)?[ \t]+(for)[ \t]+)?([a-zA-Z0-9_]+)/\5 \7 \8/i,impls,trait implementations/" > ~/.ctags
+    echo "--regex-Rust=/^[ \t]*macro_rules![ \t]+([a-zA-Z0-9_]+)/\1/d,macros,macro definitions/" > ~/.ctags
 }
 
 ###############################################################################
